@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>GettingData_learning</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+  <div class="container mt-3" >
+
+    <a href="./index.html"><input type="button" value="Set List" id="pgChng" class="btn btn-dark my-5 col-sm-2 "></a>
+
+
+    <table class="table table-dark" >
+      
+      <thead id="heading">
+        <th>S no.</th>
+        <th>name</th>
+        <th>email</th>
+        <th>password</th>
+        <th>phone</th>
+      </thead>
+      <tbody id="tbody1" >
+
+      </tbody>
+    </table>
+
+  </div>
+
+
+  
+    <!-- Optional JavaScript -->
+
+
+
+
+
+
+    <script type="module">
+
+ // Import the functions you need from the SDKs you need
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA5liFnvdFgY4HhcDXllFyMb3NxF35ZwBU",
+        authDomain: "form1-1fff4.firebaseapp.com",
+        databaseURL: "https://form1-1fff4-default-rtdb.firebaseio.com",
+        projectId: "form1-1fff4",
+        storageBucket: "form1-1fff4.appspot.com",
+        messagingSenderId: "247942701659",
+        appId: "1:247942701659:web:a26d25b60eeb41827e157e"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      import {getDatabase, ref, child, onValue, get,set}
+      from "https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js";
+      
+      const db=getDatabase();
+
+  function GetAllDataOnce(){
+      const dbany=ref(db);
+
+      get(child(dbany,"data"))
+      .then((snapshot)=>{
+        var people=[];
+
+        snapshot.forEach(childSnapshot => {
+          people.push(childSnapshot.val());
+        });
+
+        addallitems(people);
+      })
+    
+      
+      }
+  
+
+    function real(){
+      const dbany=ref(db,"data");
+
+      onValue(dbany,(snapshot) => {
+        var people=[];
+
+        snapshot.forEach(childSnapshot => {
+          people.push(childSnapshot.val());
+        });
+
+
+      addallitems(people);
+
+      });
+
+    }
+
+    function addallitems(per)
+      {
+        std=0;
+        tbody.innerHTML="";
+        per.forEach(element => {
+          adding(element.name,element.email,element.password,element.phone);
+        });
+      }
+
+
+      var std=0;
+      var tbody=document.getElementById('tbody1');
+
+      function adding(name,email,pass,phone){
+
+        let trow=document.createElement('tr');
+        let td1=document.createElement('td');
+        let td2=document.createElement('td');
+        let td3=document.createElement('td');
+        let td4=document.createElement('td');
+        let td5=document.createElement('td');
+
+        td1.innerHTML=++std;
+        td2.innerHTML=name;
+        td3.innerHTML=email;
+        td4.innerHTML=pass;
+        td5.innerHTML=phone;
+
+        trow.appendChild(td1);
+        trow.appendChild(td2);
+        trow.appendChild(td3);
+        trow.appendChild(td4);
+        trow.appendChild(td5);
+
+        tbody.appendChild(trow);
+
+      }
+     
+    
+ function loadDoc() {
+
+  
+
+//FOR AJAX--------------------------------
+console.log("asdf");
+  const xhttp = new XMLHttpRequest();
+  console.log(xhttp.status);
+  xhttp.open("GET", "proj1-5aeb5-default-rtdb-export.json",true);
+
+  xhttp.onload = function() {
+    
+    document.getElementById("asdf").innerHTML = this.responseText;
+    
+    
+  }
+  
+  xhttp.send();
+}
+    
+    window.onload =GetAllDataOnce;
+    window.onload= real;
+
+    //FOR AJAX
+    // window.onload= loadDoc;
+
+
+
+
+
+
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src='ajax.js'></script>
+</body>
+</html>
